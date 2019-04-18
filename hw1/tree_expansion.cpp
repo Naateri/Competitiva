@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 	int nh, m, res, offset, temp;
-	cout << "Ingrese el numero de hijos del árbol, y luego la longitud del camino.\n";
+	cout << "Input: number of childs per node, then desired path length.\n";
 	cin >> nh >> m; //number of children and length of path
 	int* dp = new int[m];
 	dp[0] = 1;
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 		nh--;
 	}
 	
-	cout << "Caminos que tengan longitud " << m << ": " << res << endl;
+	cout << "Paths that have length " << m << ": " << res << endl;
 	
 	return 0;
 }

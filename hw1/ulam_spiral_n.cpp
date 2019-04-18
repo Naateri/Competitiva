@@ -49,6 +49,7 @@ void ulam_spiral(int num, int& x, int& y){
 
 int main(int argc, char *argv[]) {
 	int n, x, y;
+	cout << "Number in the spiral:\n";
 	cin >> n;
 	ulam_spiral(n, x, y);
 	cout << "x: " << x << ", y: " << y << endl;
