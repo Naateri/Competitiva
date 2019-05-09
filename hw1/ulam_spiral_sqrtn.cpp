@@ -46,6 +46,8 @@ void ulam_spiral_sqrt(int num, int& x, int& y){
 		movement = 'r';
 	}
 	cur_x = x; cur_y = y;
+	bool b_x = 0, b_y = 0;
+	bool nb_x = 0, nb_y = 0;
 	/*
 	movement explained on ulam_spiral_n.cpp
 	*/
@@ -54,31 +56,47 @@ void ulam_spiral_sqrt(int num, int& x, int& y){
 		if (movement == 'l'){
 			while (min_x <= cur_x){
 				cur_x--; i--;
-				if (i == num) break;
+				if (i == num){
+					nb_x = 1;
+					break;
+				}
 			}
 			max_x++;
 			movement = 'u';
 		} else if (movement == 'u'){
 			while (cur_y <= max_y){
 				cur_y++; i--;
-				if (i == num) break;
+				if (i == num){
+					b_y = 1;
+					break;
+				}
 			}
 			max_y++;
 		} else if (movement == 'r'){
 			while (cur_x <= max_x){
 				cur_x++; i--;
-				if (i == num) break;
+				if (i == num){
+					b_x = 1;
+					break;
+				}
 			}
 			min_x--;
 			movement = 'd';
 		} else {
 			while (min_y <= cur_y){
 				cur_y--; i--;
-				if (i == num) break;
+				if (i == num){
+					nb_y = 1;
+					break;
+				}
 			}
 			min_y--;
 		}
 	}
+	if (!b_x) cur_x++;
+	else if (b_x) cur_x--;
+	if (b_y) cur_y++;
+	else if (!b_y) cur_y--;
 	x = cur_x; y = cur_y;
 }
 

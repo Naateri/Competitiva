@@ -1,6 +1,6 @@
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 struct FenwickTree{
@@ -30,30 +30,31 @@ struct FenwickTree{
 	}
 };
 
-void print_array(int* arr, int size){
-	for (int i = 0; i < size; i++){
-		cout << *(arr+i) << ", ";
-	}
-	cout << endl;
-}
 
 int main(int argc, char *argv[]) {
-	int A[] = {4,2,9,8,1,5};
-	/*int A[17];
-	srand(time(NULL));
-	for(int i = 0; i < 17; i++){
-		A[i] = rand() % 30;
-	}*/
-	FenwickTree Fenwick(6);
-	for (int i = 0; i < Fenwick.size; i++){
-		Fenwick.update(i,A[i]);
-		//print_array(Fenwick.fenwick, Fenwick.size+1);
+	vector<int> times;
+	int n, total = 1, sum = 0;
+	cin >> n;
+	times.resize(n);
+	for(int i = 0; i < n; i++){
+		cin >> times[i];
 	}
-	print_array(A, 6);
-	print_array(Fenwick.fenwick, Fenwick.size+1);
-	//cout << Fenwick.getSum(4) - Fenwick.getSum(1) << endl;
-	//cout << Fenwick.range_sum(2,4) << endl;
-	//cout << Fenwick.getSum(2) << endl;
+	sort(times.begin(), times.end());
+	FenwickTree sums(n);
+	for(int i = 0; i < n; i++){
+		sums.update(i, times[i]);
+	}
+	for(int i = 1; i < n; i++){
+		//cout << "getSum(i-1) " << sums.getSum(i-1) << ", times[i] " << times[i] << endl;
+		if (sums.getSum(i-1) <= times[i]){
+			total++;
+		} else {
+			//cout << "Got bored, removing " << times[i] << "time.\n";
+			sums.update(i, -times[i]);
+			times[i] = 0;
+		}
+	}
+	cout << total << endl;
 	return 0;
 }
 
