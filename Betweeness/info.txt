@@ -1,0 +1,31 @@
+Data acquired going through wikipedia links
+
+To read:
+Each line: first link connected to the next links.
+
+Graph info:
+
+N: # of nodes
+E: # of edges
+
+smallest_graph.txt
+N = 1777, E = 3890
+
+even_smaller_graph.txt
+N = 4349, E = 9644
+
+smaller_graph.txt
+N = 8953, E = 20706
+
+small_graph.txt
+N = 24044, E = 57724
+
+backup_graph.txt
+N = 73952, E = 242082
+
+approx1m.txt
+N = 481492, E = 27000354
+
+graph.txt (over 80 times bigger than backup_graph.txt)
+filled ram gg
+

@@ -1,0 +1,5 @@
+smallest_graph.txt 6.166792947
+even_smaller_graph.txt 39.787803755
+smaller_graph.txt 194.33442645600002
+small_graph.txt 1429.565725047
+backup_graph.txt 16149.929928448
