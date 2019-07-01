@@ -27,7 +27,7 @@ def find_leftmost(points):
     return leftmost, index
     
 
-def graham(points):
+def graham_scan(points):
     temp_points = points.copy()
     leftmost, index = find_leftmost(temp_points)
     leftmost.print()
@@ -75,7 +75,7 @@ for i in range(total_points):
     pt = point.Point(x,y)
     pts.append(pt)
 
-c_hull = graham(pts)
+c_hull = graham_scan(pts)
 
 ch_x = list()
 ch_y = list()

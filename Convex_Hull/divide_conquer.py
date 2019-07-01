@@ -1,5 +1,5 @@
 import point
-from graham import graham
+from graham import graham_scan
 from random import randint
 import math
 from operator import methodcaller
@@ -30,21 +30,75 @@ def find_rightmost(points):
 
 
 def merge(lh, rh):
-    leftmost, l_index = find_leftmost(lh)
-    rightmost, r_index = find_rightmost(rh)
+    n1 = len(lh)
+    n2 = len(rh)
+    
+    leftmost, l_index = find_leftmost(rh)
+    rightmost, r_index = find_rightmost(lh)
 
     p = point.Point(leftmost.x, leftmost.y)
     q = point.Point(rightmost.x, rightmost.y)
 
+    #upper tangent 
+    index_a = r_index
+    index_b = l_index
+    done = False 
+    while not done:
+        done = True
+        while (point.ccw(rh[index_b], lh[index_a], lh[(index_a+1)%n1]) <= 0):
+            index_a = (index_a + 1) % n1
+  
+        while (point.ccw(lh[index_a], rh[index_b], rh[(n2+index_b-1)%n2]) >= 0):    
+            index_b = (n2+index_b-1)%n2
+            done = False 
+  
+    upper_a = index_a
+    upper_b = index_b 
+    #lower tangent
+
+    index_a = l_index
+    index_b = r_index
     
-    
+    done = False
+    while not done:
+        done = True
+        while (point.ccw(lh[index_a], rh[index_b], rh[(index_b+1)%n2])<=0):
+            index_b=(index_b+1) % n2
+  
+        while (point.ccw(rh[index_b], rh[index_a], lh[(n1+index_a-1)%n1])>=0):
+            index_a=(n1+index_a-1) % n1 
+            done=False
+  
+    lower_a = index_a
+    lower_b = index_b 
+
+    result = list()
+
+    #result: current convex_hull
+      
+    result.append(lh[upper_a])
+    index = upper_a
+    while index != lower_a:
+        index = (index+1)%n1
+        result.append(lh[index])
+  
+    result.append(rh[lower_b])
+    index = lower_b
+    while (index != upper_b):
+        index = (index+1)%n2
+        result.append(rh[index])
+    return result
 
 def divide_and_conquer(points): #assumes points sorted by x
     #convex_hull = list()
+    print(len(points))
     if len(points) <= 5:
-        return graham(points)
-    left_half = divide_and_conquer(points[0:int((len(points)/2))])
-    right_half = divide_and_conquer(points[int(len(points)/2):len(points)])
+        return graham_scan(points)
+        #return points
+    left = points[0:int(len(points)/2)]
+    right = points[:int(len(points)/2)]
+    left_half = divide_and_conquer(left)
+    right_half = divide_and_conquer(right)
     return merge(left_half, right_half)
     
 total_points = 30
